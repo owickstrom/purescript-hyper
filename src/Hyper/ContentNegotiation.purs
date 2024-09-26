@@ -42,14 +42,14 @@ data MediaRangeType
 
 derive instance eqMediaRangeType :: Eq MediaRangeType
 derive instance genericMediaRangeType :: Generic MediaRangeType _
-instance showMediaRangeType :: Show MediaRangeType where show = genericShow
+instance Show MediaRangeType where show = genericShow
 
 -- TODO: Support for parameters
 data MediaRange = MediaRange MediaRangeType MediaRangeType
 
 derive instance eqMediaRange :: Eq MediaRange
 derive instance genericMediaRange :: Generic MediaRange _
-instance showMediaRange :: Show MediaRange where show = genericShow
+instance Show MediaRange where show = genericShow
 
 -- TODO: Add support for accept-extension
 type Q = Number

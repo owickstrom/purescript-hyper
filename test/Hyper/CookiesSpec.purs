@@ -117,7 +117,7 @@ spec = do
                     }
                     # evalMiddleware (setCookie "&stuff!we like" "bar" defaultCookieAttributes)
                     # testServer
-        testHeaders response `shouldEqual` [Tuple "Set-Cookie" "%26stuff!we%20like=bar"]
+        testHeaders response `shouldEqual` [Tuple "Set-Cookie" "%26stuff%21we%20like=bar"]
 
       it "URL encodes cookie value" do
         response <- { request: TestRequest defaultRequest

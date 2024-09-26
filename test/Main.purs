@@ -8,4 +8,4 @@ import Test.Spec.Reporter.Console (consoleReporter)
 import Test.Spec.Runner (runSpec)
 
 main :: Effect Unit
-main = discover "Hyper\\..*Spec" >>= runSpec [consoleReporter] >>> launchAff_
+main = launchAff_ $ discover "Hyper\\..*Spec" >>= runSpec [consoleReporter]

@@ -6,14 +6,15 @@ module Hyper.Node.Server.Options
        , Port(..)
        ) where
 
+import Prelude
+
+import Data.Either (Either(..))
+import Data.Maybe (Maybe(..))
+import Data.Newtype (class Newtype)
 import Effect (Effect)
 import Effect.Console (log)
 import Effect.Exception (Error)
-import Data.Newtype (class Newtype)
-import Data.Either (Either(..))
-import Data.Maybe (Maybe(..))
-import Node.HTTP (Address)
-import Prelude
+import Node.Net.Types (IpFamily)
 
 newtype Hostname = Hostname String
 derive instance newtypeHostname :: Newtype Hostname _
@@ -24,7 +25,7 @@ derive instance newtypePort :: Newtype Port _
 type Options =
   { hostname :: Hostname
   , port :: Port
-  , onListening :: Maybe (Either Address String) -> Effect Unit
+  , onListening :: Maybe { port :: Int, family :: IpFamily, address :: String } -> Effect Unit
   , onRequestError :: Error -> Effect Unit
   }
 
@@ -47,10 +48,7 @@ defaultOptionsWithLogging =
     onListening =
       case _ of
         Nothing -> log ("Something wrong: server initialized but is not yet started")
-        Just addressOrSocket ->
-          case addressOrSocket of
-            Left address -> log ("Listening on http://" <> address.address <> ":" <> show address.port)
-            Right icpOrSocket -> log ("Listening on " <> icpOrSocket)
+        Just addressOrSocket -> log ("Listening on http://" <> addressOrSocket.address <> ":" <> show addressOrSocket.port)
 
     onRequestError err =
       log ("Request failed: " <> show err)

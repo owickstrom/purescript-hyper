@@ -17,7 +17,7 @@ derive instance genericStatus :: Generic Status _
 derive newtype instance eqStatus :: Eq Status
 instance ordStatus :: Ord Status where
   compare s1 s2 = compareRecord (unwrap s1) (unwrap s2)
-instance showStatus :: Show Status where show = genericShow
+instance Show Status where show = genericShow
 
 statusOK :: Status
 statusOK = status 200 "OK"
