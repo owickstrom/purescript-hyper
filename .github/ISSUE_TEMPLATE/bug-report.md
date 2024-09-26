@@ -1,9 +1,3 @@
-**Do You make bug report? Fix it and merge it Yourself!**
-
-Ask for an invite ANYONE in this organization!
-
-https://github.com/purescript-open-community/.github/tree/main/profile
-
 ---
 name: Bug report
 about: Report an issue
