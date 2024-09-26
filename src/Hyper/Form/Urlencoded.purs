@@ -7,22 +7,27 @@ module Hyper.Form.Urlencoded
 import Prelude
 import Control.Monad.Error.Class (throwError)
 import Data.Array as Array
-import Data.Either (Either)
-import Data.Maybe (Maybe(Just, Nothing))
+import Data.Either (Either, note)
+import Data.Maybe (Maybe(..))
 import Data.String (split, joinWith, Pattern(Pattern))
 import Data.Traversable (sequence)
 import Data.Tuple (Tuple(Tuple))
-import Global.Unsafe (unsafeDecodeURIComponent)
+import JSURI (decodeURIComponent)
 
 toTuple :: Array String -> Either String (Tuple String (Maybe String))
-toTuple kv =
-  case kv of
-    [key] ->
-      pure (Tuple (unsafeDecodeURIComponent key) Nothing)
-    [key, value] ->
-      pure (Tuple (unsafeDecodeURIComponent key) (Just (unsafeDecodeURIComponent value)))
+toTuple =
+  case _ of
+    [key] -> do
+      key' <- decodeURIComponent' key
+      pure (Tuple key' Nothing)
+    [key, value] -> do
+      key' <- decodeURIComponent' key
+      value' <- decodeURIComponent' value
+      pure (Tuple key' (Just value'))
     parts ->
       throwError ("Invalid form key-value pair: " <> joinWith " " parts)
+  where
+    decodeURIComponent' key = decodeURIComponent key # note ("Cannot decode URI component: " <> key)
 
 
 parseUrlencoded :: String → Either String (Array (Tuple String (Maybe String)))

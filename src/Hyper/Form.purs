@@ -11,7 +11,7 @@ module Hyper.Form
        ) where
 
 import Prelude
-import Data.Tuple as Tuple
+import Data.Foldable as Foldable
 import Control.Monad.Indexed.Qualified as Ix
 import Control.Monad.Indexed (ipure, (:>>=))
 import Control.Monad.Error.Class (throwError)
@@ -43,7 +43,7 @@ derive newtype instance monoidForm :: Monoid Form
 optional :: String -> Form -> Maybe String
 optional key = do
   unwrap
-  >>> Tuple.lookup key
+  >>> Foldable.lookup key
   >>> flip bind identity
 
 

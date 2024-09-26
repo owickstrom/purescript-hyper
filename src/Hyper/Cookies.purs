@@ -17,7 +17,7 @@ import Prelude
 import Control.Monad.Indexed.Qualified as Ix
 import Control.Monad.Error.Class (throwError)
 import Data.Array (catMaybes, cons, filter, foldMap, uncons, (:))
-import Data.Either (Either)
+import Data.Either (Either, note)
 import Data.JSDate (JSDate, toUTCString)
 import Data.Maybe (Maybe(..), maybe)
 import Data.Newtype (class Newtype, unwrap)
@@ -28,7 +28,9 @@ import Data.Traversable (sequence)
 import Data.Tuple (Tuple(..), uncurry)
 import Foreign.Object (Object)
 import Foreign.Object as Object
-import Global.Unsafe (unsafeEncodeURIComponent, unsafeDecodeURIComponent)
+import JSURI (encodeURIComponent, decodeURIComponent)
+import Partial (crashWith)
+import Partial.Unsafe (unsafePartial)
 import Hyper.Conn (Conn)
 import Hyper.Middleware (Middleware)
 import Hyper.Middleware.Class (getConn, putConn)
@@ -40,12 +42,16 @@ type Value = String
 type Values = NonEmpty Array Value
 
 toPair :: Array String -> Either String (Tuple String (Array String))
-toPair kv =
-  case kv of
-    [key, value] ->
-      pure (Tuple (unsafeDecodeURIComponent key) [unsafeDecodeURIComponent value])
+toPair =
+  case _ of
+    [key, value] -> do
+      key' <- decodeURIComponent' key
+      value' <- decodeURIComponent' value
+      pure (Tuple key' [value'])
     parts ->
       throwError ("Invalid cookie-pair: " <> joinWith " " parts)
+  where
+    decodeURIComponent' key = decodeURIComponent key # note ("Cannot decode URI component: " <> key)
 
 splitPairs :: String -> Either String (Array (Tuple String (Array String)))
 splitPairs =
@@ -116,7 +122,7 @@ defaultCookieAttributes =
   }
 
 setCookieHeaderValue :: Name -> Value -> CookieAttributes -> String
-setCookieHeaderValue key value { comment, expires, path, maxAge: m, domain, secure, httpOnly, sameSite } =
+setCookieHeaderValue = \key value { comment, expires, path, maxAge: m, domain, secure, httpOnly, sameSite } ->
   [ (Tuple "Comment" <<< unsafeEncodeURIComponent) <$> comment
   , (Tuple "Expires" <<< toUTCString) <$> expires
   , (Tuple "Max-Age" <<< show <<< unwrap) <$> m
@@ -132,6 +138,11 @@ setCookieHeaderValue key value { comment, expires, path, maxAge: m, domain, secu
   # joinWith ";"
  where
   assigment k v = k <> "=" <> v
+
+  unsafeEncodeURIComponent s =
+    case encodeURIComponent s of
+         Nothing -> unsafePartial $ crashWith "Hyper.Cookies.setCookieHeaderValue: Cannot encodeURIComponent " <> s
+         Just s' -> s'
 
   sameSiteSer :: SameSite -> String
   sameSiteSer Strict = "Strict"

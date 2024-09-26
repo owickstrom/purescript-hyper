@@ -1,0 +1,32 @@
+package:
+  name: hyper
+  dependencies:
+    - "aff"
+    - "avar"
+    - "argonaut"
+    - "arrays"
+    - "console"
+    - "control"
+    - "effect"
+    - "foldable-traversable"
+    - "http-methods"
+    - "indexed-monad"
+    - "media-types"
+    - "node-buffer"
+    - "node-http"
+    - "ordered-collections"
+    - "psci-support"
+    - "random"
+    - "open-smolder"
+    - "spec"
+    - "spec-discovery"
+    - "strings"
+    - "transformers"
+    - "record-extra"
+  test:
+    main: Test.Main
+    dependencies: []
+workspace:
+  packageSet:
+    registry: 60.1.0
+  extraPackages: {}

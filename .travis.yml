@@ -5,61 +5,61 @@ sudo: required
 addons:
   apt:
     packages:
-    - texlive
-    - texlive-fonts-recommended
-    - texlive-latex-extra
-    - texlive-fonts-extra
-    - dvipng
-    - texlive-latex-recommended
-    - latex-xcolor
-    - lmodern
-    - latexmk
+      - texlive
+      - texlive-fonts-recommended
+      - texlive-latex-extra
+      - texlive-fonts-extra
+      - dvipng
+      - texlive-latex-recommended
+      - latex-xcolor
+      - lmodern
+      - latexmk
 
 node_js:
-- '11'
+  - "18"
 
 env:
   matrix:
-  - PATH=$HOME/purescript:$PATH
+    - PATH=$HOME/purescript:$PATH
   global:
-  - secure: "lAAcD9YPFC/yNql26yvr0llA4JY4TBPkSL0JdmbQ+i4KwQiw/o+sUSH+KPxoesD/1qcFBKwnv+dp11oggRDvlh+LRQzj2PH1/eSRVQ6r3aZ4/lgtQ6JHUWUpbbjTGqKc6Flx5+0kMR2U0l1FVUaSi0cj9QKYVcFsvg+Kk1QW7q8gltSwOV8Kmt2MPKbGkUzhMLF9VddaEwmBdVGZNw0n/ZKN+7fdwctfwYhhcVQVTvPmdOtgXlPioyVOGsAEUg96qZmBebTfEoDkmujYjaE9lueoSpFgArSxMpxoRPkq22bY7e/zG4Lfg2KgbPDbSNunZLqDZicpP20nV7ZT/4SfNsi535995xVs/ByyaK1aaNayFZU4CtxUolsib9wMvE7fo+jJCBET19LxxfJ324iUT0GBIoR5e9R1GSpiSifzThOBnzRsA2t1UGvVJri7QbxnRKaj7uEOBCgcs0u5eYRElfo50/zWoNcUBTSeW/8RzxBVPrcXlmz+QL8rSdtJuVi1Nmzsv/EJhdpW8qEO4sO6xu/7mSsHaVS0kTPOyNLvha4SGEDjLsz2NNqDz87pxYtazysAf+hFGBQoAjWMFaCArOy2YfVgdFpWK7pThjd33KYwrCBYGpa+IRMo2rCd8T2SHkMLgxciMyP09y2M+d7C9LJ0CcemdXX5zfjmPjBxxEs="
-  - secure: "K3g58P0HUnRLIa2te30XL8xmyzuvimzG0z5R4C2+fku/gC6kkYs2MT/Cc3MFYHt9FPGGOTfys3UR0aPkq2bSL+Y5WXbjutY9PNqsvA2MqMLxdpZirTW6N6yP2l/ilMnPnJUNxScnErqvk4JKvdybYrAxYRA1mC2x3UknCL7uFLowFB/GU/XyTBY3mhu5uIB5I//Lr/oKMxT1M98hA4T5WHbLEE6K5ozypbsX5yU8OOgf6+ZZO9YegBS7vD9zlZNZivObfX+N0tmWkGLp+1WZiI5x0BaYuNU2oFq+hQie/tHAQTvcmKfprreRPGr1R95878G8OpVuoVLX3yXEfznfV62RYJodHsOUDFOMRXbgoBPRGK3GsCts8UaOg0efG4Y67pbMYgXHROtrLxlBfZasrcu6Odh+ZlmV4eraMi6muJWkRwga03i7BtwiP3Aw47+ycoMympupRyDlzk9HCO7ZyhYXsN25RCOsY6HQ6U6k9WvG421KPEPGz5g4hBuVqq5svA8wAdT3XUGIkYkfPmSi2SK2xEDJhz/g5E5HazM8lbmZfFYCB8fthz3XuRuiQqHQov3VrBPMWYa4VxMsvbc2NFc+4DwenE6PaOBwrwcH1zdtlWZB4YpyCZPeXFrQwm5uvm3I3YKijBb4sNjzLCeUSR7QkuMiYa/sE/tb1yYPhFc="
+    - secure: "lAAcD9YPFC/yNql26yvr0llA4JY4TBPkSL0JdmbQ+i4KwQiw/o+sUSH+KPxoesD/1qcFBKwnv+dp11oggRDvlh+LRQzj2PH1/eSRVQ6r3aZ4/lgtQ6JHUWUpbbjTGqKc6Flx5+0kMR2U0l1FVUaSi0cj9QKYVcFsvg+Kk1QW7q8gltSwOV8Kmt2MPKbGkUzhMLF9VddaEwmBdVGZNw0n/ZKN+7fdwctfwYhhcVQVTvPmdOtgXlPioyVOGsAEUg96qZmBebTfEoDkmujYjaE9lueoSpFgArSxMpxoRPkq22bY7e/zG4Lfg2KgbPDbSNunZLqDZicpP20nV7ZT/4SfNsi535995xVs/ByyaK1aaNayFZU4CtxUolsib9wMvE7fo+jJCBET19LxxfJ324iUT0GBIoR5e9R1GSpiSifzThOBnzRsA2t1UGvVJri7QbxnRKaj7uEOBCgcs0u5eYRElfo50/zWoNcUBTSeW/8RzxBVPrcXlmz+QL8rSdtJuVi1Nmzsv/EJhdpW8qEO4sO6xu/7mSsHaVS0kTPOyNLvha4SGEDjLsz2NNqDz87pxYtazysAf+hFGBQoAjWMFaCArOy2YfVgdFpWK7pThjd33KYwrCBYGpa+IRMo2rCd8T2SHkMLgxciMyP09y2M+d7C9LJ0CcemdXX5zfjmPjBxxEs="
+    - secure: "K3g58P0HUnRLIa2te30XL8xmyzuvimzG0z5R4C2+fku/gC6kkYs2MT/Cc3MFYHt9FPGGOTfys3UR0aPkq2bSL+Y5WXbjutY9PNqsvA2MqMLxdpZirTW6N6yP2l/ilMnPnJUNxScnErqvk4JKvdybYrAxYRA1mC2x3UknCL7uFLowFB/GU/XyTBY3mhu5uIB5I//Lr/oKMxT1M98hA4T5WHbLEE6K5ozypbsX5yU8OOgf6+ZZO9YegBS7vD9zlZNZivObfX+N0tmWkGLp+1WZiI5x0BaYuNU2oFq+hQie/tHAQTvcmKfprreRPGr1R95878G8OpVuoVLX3yXEfznfV62RYJodHsOUDFOMRXbgoBPRGK3GsCts8UaOg0efG4Y67pbMYgXHROtrLxlBfZasrcu6Odh+ZlmV4eraMi6muJWkRwga03i7BtwiP3Aw47+ycoMympupRyDlzk9HCO7ZyhYXsN25RCOsY6HQ6U6k9WvG421KPEPGz5g4hBuVqq5svA8wAdT3XUGIkYkfPmSi2SK2xEDJhz/g5E5HazM8lbmZfFYCB8fthz3XuRuiQqHQov3VrBPMWYa4VxMsvbc2NFc+4DwenE6PaOBwrwcH1zdtlWZB4YpyCZPeXFrQwm5uvm3I3YKijBb4sNjzLCeUSR7QkuMiYa/sE/tb1yYPhFc="
 
 install:
-- npm install -g bower pulp@13.0.0 purescript@^0.13.0 spago@0.8.3
-- spago install
-- bower install
-- pip install --user -r docs/requirements.txt
+  - npm install -g purescript@latest spago@next
+  - spago install
+  - bower install
+  - pip install --user -r docs/requirements.txt
 
 script:
-- export VERSION=branch-job-$TRAVIS_JOB_NUMBER
-- if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then export VERSION=pull-request-job-$TRAVIS_JOB_NUMBER;
-  fi
-- if [[ "$TRAVIS_TAG" != "" ]]; then export VERSION=$TRAVIS_TAG; fi
-- pulp build
-- rm -rf bower_components output
-- spago build
-- spago test
-- make examples
-- make docs
+  - export VERSION=branch-job-$TRAVIS_JOB_NUMBER
+  - if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then export VERSION=pull-request-job-$TRAVIS_JOB_NUMBER;
+    fi
+  - if [[ "$TRAVIS_TAG" != "" ]]; then export VERSION=$TRAVIS_TAG; fi
+  - pulp build
+  - rm -rf bower_components output
+  - spago build
+  - spago test
+  - make examples
+  - make docs
 
 before_deploy: pip install --user awscli
 
 deploy:
-- provider: s3
-  access_key_id: "$AWS_ACCESS_KEY_ID"
-  secret_access_key: "$AWS_SECRET_ACCESS_KEY"
-  local_dir: docs/target/release
-  bucket: hyper.wickstrom.tech
-  upload-dir: docs/$VERSION
-  region: eu-west-1
-  skip_cleanup: true
-  on:
-    tags: true
-    repo: owickstrom/hyper
+  - provider: s3
+    access_key_id: "$AWS_ACCESS_KEY_ID"
+    secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+    local_dir: docs/target/release
+    bucket: hyper.wickstrom.tech
+    upload-dir: docs/$VERSION
+    region: eu-west-1
+    skip_cleanup: true
+    on:
+      tags: true
+      repo: owickstrom/hyper
 
 after_deploy:
-   # regenerate and deploy the documentation index
+  # regenerate and deploy the documentation index
   - make -C docs release-index
   # cache for one hour
   - aws s3 cp --region eu-west-1 --cache-control max-age=3600,public docs/target/index/index.html s3://hyper.wickstrom.tech/
@@ -67,4 +67,4 @@ after_deploy:
 
 cache:
   directories:
-  - output
+    - output

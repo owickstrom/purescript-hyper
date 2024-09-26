@@ -34,7 +34,7 @@ serveFilesAndGet path =
     app = fileServer "test/Hyper/Node/FileServerSpec" on404
 
     on404 = Ix.do
-      body :: Buffer.Buffer <- liftEffect (Buffer.fromString "Not Found" UTF8)
+      (body :: Buffer.Buffer) <- liftEffect (Buffer.fromString "Not Found" UTF8)
       writeStatus statusNotFound
       headers []
       respond body

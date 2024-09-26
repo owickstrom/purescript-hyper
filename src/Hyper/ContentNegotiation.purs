@@ -23,7 +23,7 @@ import Data.Array (uncons)
 import Data.Array as Array
 import Data.Either (Either)
 import Data.Generic.Rep (class Generic)
-import Data.Generic.Rep.Show (genericShow)
+import Data.Show.Generic (genericShow)
 import Data.Int as Int
 import Data.List as List
 import Data.List.NonEmpty (NonEmptyList, toList, head)
@@ -42,14 +42,14 @@ data MediaRangeType
 
 derive instance eqMediaRangeType :: Eq MediaRangeType
 derive instance genericMediaRangeType :: Generic MediaRangeType _
-instance showMediaRangeType :: Show MediaRangeType where show = genericShow
+instance Show MediaRangeType where show = genericShow
 
 -- TODO: Support for parameters
 data MediaRange = MediaRange MediaRangeType MediaRangeType
 
 derive instance eqMediaRange :: Eq MediaRange
 derive instance genericMediaRange :: Generic MediaRange _
-instance showMediaRange :: Show MediaRange where show = genericShow
+instance Show MediaRange where show = genericShow
 
 -- TODO: Add support for accept-extension
 type Q = Number

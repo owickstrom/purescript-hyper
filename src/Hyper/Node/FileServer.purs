@@ -2,24 +2,25 @@ module Hyper.Node.FileServer (fileServer) where
 
 import Prelude
 
-import Control.Monad.Indexed.Qualified as Ix
 import Control.Monad.Indexed ((:>>=))
-import Effect.Aff.Class (liftAff, class MonadAff)
-import Effect.Class (liftEffect)
+import Control.Monad.Indexed.Qualified as Ix
 import Data.Array (last)
+import Data.Either (Either(..))
 import Data.Map (Map, fromFoldable, lookup)
 import Data.Maybe (maybe)
 import Data.String (Pattern(..), split)
 import Data.Tuple (Tuple(Tuple))
+import Effect.Aff (try)
+import Effect.Aff.Class (liftAff, class MonadAff)
+import Effect.Class (liftEffect)
 import Hyper.Conn (Conn)
 import Hyper.Middleware (Middleware, lift')
-import Hyper.Middleware.Class (getConn)
 import Hyper.Request (class Request, getRequestData)
 import Hyper.Response (class ResponseWritable, class Response, ResponseEnded, StatusLineOpen, end, headers, send, toResponse, writeStatus)
 import Hyper.Status (statusOK)
 import Node.Buffer (Buffer)
 import Node.Buffer as Buffer
-import Node.FS.Aff (readFile, stat, exists)
+import Node.FS.Aff (readFile, stat)
 import Node.FS.Stats (isDirectory, isFile)
 import Node.Path (FilePath)
 import Node.Path as Path
@@ -159,7 +160,6 @@ fileServer
      (Conn req (res ResponseEnded) c)
      Unit
 fileServer dir on404 = Ix.do
-  conn ← getConn
   { url } <- getRequestData
   serve (Path.concat [dir, url])
   where
@@ -169,7 +169,7 @@ fileServer dir on404 = Ix.do
       | otherwise = on404
 
     serve absolutePath = Ix.do
-      fExists ← lift' (liftAff (exists absolutePath))
-      if fExists
-        then lift' (liftAff (stat absolutePath)) :>>= serveStats absolutePath
-        else on404
+      result ← lift' (liftAff (try $ stat absolutePath))
+      case result of
+        Right stats → serveStats absolutePath stats
+        Left _ → on404
